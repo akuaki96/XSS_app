@@ -7,32 +7,81 @@ import { useState } from "react";
 
 export default function Home() {
   type post = {
-    name: String;
-    body: String;
+    name: string;
+    body: string;
+    goodFlag: boolean;
+    badFlag: boolean;
   };
 
   const [inputPostText, setInputPostText] = useState("");
-  const [inputUsernameText, setInputUsernameText] = useState("");
+  const [inputUsernameText, setInputUsernameText] = useState<string>("");
 
   const [posts, setPosts] = useState<post[]>([
     {
       name: "aaaaa",
       body: "投稿内容1",
+      goodFlag: false,
+      badFlag: false,
     },
     {
       name: "bbbbb",
       body: "投稿内容2",
+      goodFlag: false,
+      badFlag: false,
     },
     {
       name: "cccccc",
       body: "<a href='https://openai.com/blog/chatgpt'>qqqq</a>",
+      goodFlag: false,
+      badFlag: false,
     },
   ]);
 
+  const onClickGoodButton = (targetIndex: number) => {
+    // 任意のいいね数のみ変更
+    setPosts((prev) => {
+      const newPosts: post[] = prev.map((value, index) => {
+        if (targetIndex === index) {
+          return { ...value, goodFlag: !value.goodFlag, badFlag: false };
+        } else {
+          return value;
+        }
+      });
+
+      return newPosts;
+    });
+
+    // console.log(posts[targetIndex].goodFlag);
+  };
+  const onClickBadButton = (targetIndex: number) => {
+    // 任意のいいね数のみ変更
+    setPosts((prev) => {
+      const newPosts: post[] = prev.map((value, index) => {
+        if (targetIndex === index) {
+          return { ...value, goodFlag: false, badFlag: !value.badFlag };
+        } else {
+          return value;
+        }
+      });
+
+      return newPosts;
+    });
+
+    console.log(posts[targetIndex].goodFlag);
+  };
+
   const onClickPostButton = () => {
-    console.log(inputPostText);
-    console.log(inputUsernameText);
-    setPosts([...posts, { name: inputUsernameText, body: inputPostText }]);
+    // console.log(inputPostText);
+    // console.log(inputUsernameText);
+    setPosts((prev) => [
+      ...prev,
+      {
+        name: inputUsernameText,
+        body: inputPostText,
+        goodFlag: false,
+        badFlag: false,
+      },
+    ]);
     setInputPostText("");
     setInputUsernameText("");
   };
@@ -61,7 +110,7 @@ export default function Home() {
 
         <div className={style.main}>
           <div className={style.mainContents}>
-            <h1 className={style.boardTitle}>掲示板です</h1>
+            <h1 className={style.boardTitle}>掲示板</h1>
 
             {posts.map((post, index) => (
               <div className={style.Postcontent} key={index}>
@@ -84,27 +133,50 @@ export default function Home() {
                     // }}
                   />
                   {post.body}
-                  <button>good!!</button>
-                  <button>bad...</button>
                 </div>
 
-                <div></div>
+                <div className={style.reactionButton}>
+                  <button
+                    className={style.goodButton}
+                    style={{
+                      backgroundColor: posts[index].goodFlag ? "red" : "",
+                    }}
+                    onClick={() => onClickGoodButton(index)}
+                  >
+                    good
+                  </button>
+                  <button
+                    className={style.badButton}
+                    style={{
+                      backgroundColor: posts[index].badFlag ? "blue" : "",
+                    }}
+                    onClick={() => onClickBadButton(index)}
+                  >
+                    bad...
+                  </button>
+                </div>
               </div>
             ))}
 
             <div className={style.inputContents}>
-              <input
-                className={style.inputUsernameText}
-                value={inputUsernameText}
-                placeholder="ユーザー名入力"
-                onChange={(e) => setInputUsernameText(e.target.value)}
-              ></input>
-              <textarea
-                className={style.inputPostText}
-                value={inputPostText}
-                placeholder="投稿内容を入力"
-                onChange={(e) => setInputPostText(e.target.value)}
-              ></textarea>
+              <div>
+                <input
+                  className={style.inputUsernameText}
+                  value={inputUsernameText}
+                  placeholder="ユーザー名入力"
+                  onChange={(e) => setInputUsernameText(e.target.value)}
+                ></input>
+              </div>
+              <div>
+                <textarea
+                  className={style.inputPostText}
+                  rows={5}
+                  cols={50}
+                  value={inputPostText}
+                  placeholder="投稿内容を入力"
+                  onChange={(e) => setInputPostText(e.target.value)}
+                ></textarea>
+              </div>
               <button className={style.PostButton} onClick={onClickPostButton}>
                 投稿
               </button>

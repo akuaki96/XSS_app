@@ -1,6 +1,6 @@
 type headerData = {
-  title: String;
-  link: String;
+  title: string;
+  link: string;
 };
 
 export const headerData: headerData[] = [
