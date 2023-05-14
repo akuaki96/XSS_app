@@ -1,3 +1,28 @@
+.header {
+  background-color: rgba(86, 205, 189, 0.716);
+  color: white;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  /* position: fixed; */
+}
+.link {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 18px;
+}
+.link:hover {
+  color: #d7d7d7;
+}
+
+.boardTitle {
+  margin: 50px 0;
+}
+
+.headerContents {
+  /* background-color: aqua; */
+  width: 100%;
+}
 .headerListContent {
   display: inline;
   margin: 0 40px 50px;
@@ -5,4 +30,47 @@
 
 .boardTitle {
   text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.postArea {
+  border-bottom: 2px #e8e8e8 solid;
+  border-radius: 13px;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  background-color: #f9f9f2;
+}
+
+.postContents {
+  margin: 0px 0 20px 20px;
+}
+
+.userName {
+  margin: 0 0 20px 0;
+  color: rgb(64, 63, 61);
+  font-weight: bold;
+}
+
+.postTime {
+  margin-left: 50px;
+  color: #bfbfbf;
+  font-size: 13px;
+}
+
+.reactionButtonArea {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.reactionButton {
+  border: none;
+  padding: 0;
+  margin-left: 15px;
+  background-color: #f9f9f2;
+}
+
+.reactionButtonIcon {
+  height: 20px;
+  width: 20px;
 }

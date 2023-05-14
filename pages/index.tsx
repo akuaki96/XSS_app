@@ -4,10 +4,13 @@ const inter = Inter({ subsets: ["latin"] });
 import style from "../styles/Home.module.css";
 import { headerData } from "./datas/headerData";
 import { useState } from "react";
-
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 export default function Home() {
   type post = {
     name: string;
+    time: string;
     body: string;
     goodFlag: boolean;
     badFlag: boolean;
@@ -15,27 +18,40 @@ export default function Home() {
 
   const [inputPostText, setInputPostText] = useState("");
   const [inputUsernameText, setInputUsernameText] = useState<string>("");
+  // const [postTime, setPostTime] = useState<string>();
 
   const [posts, setPosts] = useState<post[]>([
     {
-      name: "aaaaa",
-      body: "投稿内容1",
+      name: "名無しさん１",
+      time: "投稿日時 2023/5/14 22:02:53",
+      body: "投稿内容１投稿内容１投稿内容１投稿内容１投稿内容１投稿内容１投稿内容１投稿内容１投稿内容１",
       goodFlag: false,
       badFlag: false,
     },
     {
-      name: "bbbbb",
-      body: "投稿内容2",
+      name: "名無しさん２",
+      time: "投稿日時 2023/5/15 22:02:53",
+      body: "投稿内容２投稿内容２投稿内容２投稿内容２投稿内容２投稿内容２投稿内容２投稿内容２投稿内容２",
       goodFlag: false,
       badFlag: false,
     },
     {
-      name: "cccccc",
+      name: "名無しさん３",
+      time: "投稿日時 2023/5/16 02:02:53",
       body: "<a href='https://openai.com/blog/chatgpt'>qqqq</a>",
       goodFlag: false,
       badFlag: false,
     },
+    {
+      name: "名無しさん４",
+      time: "投稿日時 2023/5/16 02:02:53",
+      body: "<script>setTimeout(()=>window.location.href = 'https://openai.com/blog/chatgpt',3000);</script>",
+      goodFlag: false,
+      badFlag: false,
+    },
   ]);
+
+  console.log(posts);
 
   const onClickGoodButton = (targetIndex: number) => {
     // 任意のいいね数のみ変更
@@ -53,6 +69,7 @@ export default function Home() {
 
     // console.log(posts[targetIndex].goodFlag);
   };
+
   const onClickBadButton = (targetIndex: number) => {
     // 任意のいいね数のみ変更
     setPosts((prev) => {
@@ -66,17 +83,26 @@ export default function Home() {
 
       return newPosts;
     });
-
-    console.log(posts[targetIndex].goodFlag);
   };
 
   const onClickPostButton = () => {
-    // console.log(inputPostText);
-    // console.log(inputUsernameText);
+    // 投稿時間取得
+    const date = new Date();
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const seconds = date.getSeconds().toString().padStart(2, "0");
+
+    const postTime = `投稿日時  ${date.getFullYear()}/${
+      date.getMonth() + 1
+    }/${date.getDate()}  ${hours}:${minutes}:${seconds}`;
+
+    //
+
     setPosts((prev) => [
       ...prev,
       {
-        name: inputUsernameText,
+        name: inputUsernameText === "" ? "名無しさん" : inputUsernameText,
+        time: postTime,
         body: inputPostText,
         goodFlag: false,
         badFlag: false,
@@ -99,13 +125,17 @@ export default function Home() {
 
       <div className={style.body}>
         <div className={style.header}>
-          <ul className={style.ul}>
-            {headerData.map((data, index) => (
-              <li className={style.headerListContent} key={index}>
-                {data.title}
-              </li>
-            ))}
-          </ul>
+          <div className={style.headerContents}>
+            <ul className={style.ul}>
+              {headerData.map((data, index) => (
+                <li className={style.headerListContent} key={index}>
+                  <Link href={data.link} className={style.link}>
+                    {data.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div className={style.main}>
@@ -113,47 +143,61 @@ export default function Home() {
             <h1 className={style.boardTitle}>掲示板</h1>
 
             {posts.map((post, index) => (
-              <div className={style.Postcontent} key={index}>
-                <div className={style.userInfo}>
-                  <img></img>
-                  <p>{post.name}</p>
-                </div>
+              <div className={style.postArea} key={index}>
+                <div className={style.postContents}>
+                  <p className={style.userName}>
+                    {post.name}
+                    <span className={style.postTime}>{post.time}</span>
+                  </p>
 
-                <div className={style.postContent}>
-                  <div
-                    className={style.postText}
-                    // dangerouslySetInnerHTML={{ __html: post.body }}
+                  <div className={style.postText}>
+                    <div
+                      className={style.postText}
+                      dangerouslySetInnerHTML={{ __html: post.body }}
 
-                    // dangerouslySetInnerHTML={{
-                    //   __html: `<script>setTimeout(()=>window.location.href = "https://openai.com/blog/chatgpt",3000);</script>`,
-                    // }}
-                    // dangerouslySetInnerHTML={{
-                    //   __html: `<button onclick="alert('attack from event handler')">Click Me</button>
-                    // `,
-                    // }}
-                  />
-                  {post.body}
-                </div>
+                      // dangerouslySetInnerHTML={{
+                      //   __html: `<script>setTimeout(()=>window.location.href = "https://openai.com/blog/chatgpt",3000);</script>`,
+                      // }}
 
-                <div className={style.reactionButton}>
-                  <button
-                    className={style.goodButton}
-                    style={{
-                      backgroundColor: posts[index].goodFlag ? "red" : "",
-                    }}
-                    onClick={() => onClickGoodButton(index)}
-                  >
-                    good
-                  </button>
-                  <button
-                    className={style.badButton}
-                    style={{
-                      backgroundColor: posts[index].badFlag ? "blue" : "",
-                    }}
-                    onClick={() => onClickBadButton(index)}
-                  >
-                    bad...
-                  </button>
+                      // dangerouslySetInnerHTML={{
+                      //   __html: `<button onclick="alert('attack from event handler')">Click Me</button>
+                      // `,
+                      // }}
+                    />
+                    {/* {post.body} */}
+                  </div>
+
+                  <div className={style.reactionButtonArea}>
+                    <button
+                      className={style.reactionButton}
+                      onClick={() => onClickGoodButton(index)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faThumbsUp}
+                        className={style.reactionButtonIcon}
+                        style={{
+                          color: posts[index].goodFlag
+                            ? "rgb(93, 93, 93)"
+                            : "#d7d7d7",
+                        }}
+                      />
+                    </button>
+
+                    <button
+                      className={style.reactionButton}
+                      onClick={() => onClickBadButton(index)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faThumbsDown}
+                        className={style.reactionButtonIcon}
+                        style={{
+                          color: posts[index].badFlag
+                            ? "rgb(93, 93, 93)"
+                            : "#d7d7d7",
+                        }}
+                      />
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
