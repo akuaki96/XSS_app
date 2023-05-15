@@ -1,17 +1,16 @@
 import Head from "next/head";
-import { Inter } from "@next/font/google";
-const inter = Inter({ subsets: ["latin"] });
 import style from "../styles/Home.module.css";
 import { headerData } from "./datas/headerData";
 import { useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+
 export default function Home() {
   type post = {
     name: string;
     time: string;
-    body: string;
+    body: any;
     goodFlag: boolean;
     badFlag: boolean;
   };
@@ -42,13 +41,13 @@ export default function Home() {
       goodFlag: false,
       badFlag: false,
     },
-    {
-      name: "名無しさん４",
-      time: "投稿日時 2023/5/16 02:02:53",
-      body: "<script>setTimeout(()=>window.location.href = 'https://openai.com/blog/chatgpt',3000);</script>",
-      goodFlag: false,
-      badFlag: false,
-    },
+    // {
+    //   name: "名無しさん４",
+    //   time: "投稿日時 2023/5/16 02:02:53",
+    //   body: "<script>setTimeout(()=>window.location.href = 'https://openai.com/blog/chatgpt',3000);</script>",
+    //   goodFlag: false,
+    //   badFlag: false,
+    // },
   ]);
 
   console.log(posts);
@@ -85,6 +84,7 @@ export default function Home() {
     });
   };
 
+  // 投稿ボタンの処理
   const onClickPostButton = () => {
     // 投稿時間取得
     const date = new Date();
@@ -96,14 +96,18 @@ export default function Home() {
       date.getMonth() + 1
     }/${date.getDate()}  ${hours}:${minutes}:${seconds}`;
 
-    //
+    const scriptRegex = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
+    const inputPostTextWithScript = inputPostText.replace(
+      scriptRegex,
+      (match) => Function(match.replace(/<script>|<\/script>/gi, ""))()
+    );
 
     setPosts((prev) => [
       ...prev,
       {
         name: inputUsernameText === "" ? "名無しさん" : inputUsernameText,
         time: postTime,
-        body: inputPostText,
+        body: inputPostTextWithScript,
         goodFlag: false,
         badFlag: false,
       },
@@ -203,7 +207,7 @@ export default function Home() {
             ))}
 
             <div className={style.inputContents}>
-              <div>
+              <div className={style.inputUsernameArea}>
                 <input
                   className={style.inputUsernameText}
                   value={inputUsernameText}
@@ -211,7 +215,7 @@ export default function Home() {
                   onChange={(e) => setInputUsernameText(e.target.value)}
                 ></input>
               </div>
-              <div>
+              <div className={style.inputPostTextArea}>
                 <textarea
                   className={style.inputPostText}
                   rows={5}
@@ -221,9 +225,14 @@ export default function Home() {
                   onChange={(e) => setInputPostText(e.target.value)}
                 ></textarea>
               </div>
-              <button className={style.PostButton} onClick={onClickPostButton}>
-                投稿
-              </button>
+              <div className={style.postButtonArea}>
+                <button
+                  className={style.postButton}
+                  onClick={onClickPostButton}
+                >
+                  投稿
+                </button>
+              </div>
             </div>
           </div>
         </div>
