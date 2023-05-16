@@ -50,6 +50,7 @@ export default function Home() {
     // },
   ]);
 
+  <script>window.location.href = 'https://openai.com/blog/chatgpt';</script>;
   console.log(posts);
 
   const onClickGoodButton = (targetIndex: number) => {
@@ -162,7 +163,6 @@ export default function Home() {
                       // dangerouslySetInnerHTML={{
                       //   __html: `<script>setTimeout(()=>window.location.href = "https://openai.com/blog/chatgpt",3000);</script>`,
                       // }}
-
                       // dangerouslySetInnerHTML={{
                       //   __html: `<button onclick="alert('attack from event handler')">Click Me</button>
                       // `,
