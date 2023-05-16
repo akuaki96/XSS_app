@@ -48,6 +48,13 @@ export default function Home() {
     //   goodFlag: false,
     //   badFlag: false,
     // },
+    // {
+    //   name: "名無しさん４",
+    //   time: "投稿日時 2023/5/16 02:02:53",
+    //   body: "<script>setTimeout(()=>window.location.href = './dangerpage',3000);</script>",
+    //   goodFlag: false,
+    //   badFlag: false,
+    // },
   ]);
 
   <script>window.location.href = 'https://openai.com/blog/chatgpt';</script>;

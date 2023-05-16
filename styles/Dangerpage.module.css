@@ -1,0 +1,37 @@
+.body {
+  height: 100vh;
+  background-color: rgb(182, 0, 0);
+  padding-left: 40px;
+}
+
+.alertTitle {
+  margin: 0;
+  padding-top: 40px;
+}
+
+.alertText {
+  margin-bottom: 40px;
+}
+
+.outflowInfoArea {
+  margin-top: 20px;
+}
+
+.outflowList {
+  margin-bottom: 5px;
+}
+
+.outflowInfo {
+  margin: 40px 0;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.phonenumberText {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.text {
+  color: white;
+}
