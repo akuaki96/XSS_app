@@ -6,7 +6,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 
-export default function Home() {
+const Home = () => {
   type post = {
     name: string;
     time: string;
@@ -48,6 +48,7 @@ export default function Home() {
     //   goodFlag: false,
     //   badFlag: false,
     // },
+
     // {
     //   name: "名無しさん４",
     //   time: "投稿日時 2023/5/16 02:02:53",
@@ -56,9 +57,6 @@ export default function Home() {
     //   badFlag: false,
     // },
   ]);
-
-  <script>window.location.href = 'https://openai.com/blog/chatgpt';</script>;
-  console.log(posts);
 
   const onClickGoodButton = (targetIndex: number) => {
     // 任意のいいね数のみ変更
@@ -248,4 +246,6 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+
+export default Home;

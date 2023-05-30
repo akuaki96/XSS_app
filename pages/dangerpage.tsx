@@ -1,6 +1,14 @@
 import style from "../styles/Dangerpage.module.css";
 
 const DangerPage = () => {
+  setTimeout(
+    () =>
+      alert(
+        "テクニカルサポートセンターへ至急ご連絡ください。\n\nWindowsテクニカルサポート電話番号\n050 - 1122 - ××××"
+      ),
+    2000
+  );
+
   return (
     <div className={style.body}>
       <div className={style.contents}>
@@ -12,16 +20,20 @@ const DangerPage = () => {
           <h2 className={`${style.alertText} ${style.text}`}>
             放置すると以下の情報が流失する恐れがあります
           </h2>
+
           <ul>
             <li className={`${style.outflowList} ${style.text}`}>
               ユーザーIDやパスワードのログイン情報
             </li>
+
             <li className={`${style.outflowList} ${style.text}`}>
               クレジットカード情報
             </li>
+
             <li className={`${style.outflowList} ${style.text}`}>
               ブラウザの履歴
             </li>
+
             <li className={`${style.outflowList} ${style.text}`}>
               住所やメールアドレスなどの個人情報
             </li>
