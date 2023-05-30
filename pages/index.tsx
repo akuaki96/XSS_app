@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
-  type post = {
+  type Post = {
     name: string;
     time: string;
     body: any;
@@ -19,7 +19,7 @@ const Home = () => {
   const [inputUsernameText, setInputUsernameText] = useState<string>("");
   // const [postTime, setPostTime] = useState<string>();
 
-  const [posts, setPosts] = useState<post[]>([
+  const [posts, setPosts] = useState<Post[]>([
     {
       name: "名無しさん１",
       time: "投稿日時 2023/5/14 22:02:53",
@@ -61,7 +61,7 @@ const Home = () => {
   const onClickGoodButton = (targetIndex: number) => {
     // 任意のいいね数のみ変更
     setPosts((prev) => {
-      const newPosts: post[] = prev.map((value, index) => {
+      const newPosts: Post[] = prev.map((value, index) => {
         if (targetIndex === index) {
           return { ...value, goodFlag: !value.goodFlag, badFlag: false };
         } else {
@@ -78,7 +78,7 @@ const Home = () => {
   const onClickBadButton = (targetIndex: number) => {
     // 任意のいいね数のみ変更
     setPosts((prev) => {
-      const newPosts: post[] = prev.map((value, index) => {
+      const newPosts: Post[] = prev.map((value, index) => {
         if (targetIndex === index) {
           return { ...value, goodFlag: false, badFlag: !value.badFlag };
         } else {
