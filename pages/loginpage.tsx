@@ -30,8 +30,14 @@ const Loginpage = () => {
         body: JSON.stringify({ email: inputUsername, password: inputPass }),
       });
 
+      // 失敗時は下の処理を行わない
+      if (!res.ok) {
+        return;
+      }
+
       const json = await res.json();
-      console.log(json);
+      console.log("成功", json);
+      console.log({ res });
 
       setUserInfo((prev) => [
         ...prev,
@@ -45,7 +51,7 @@ const Loginpage = () => {
   };
 
   // email: test@example.com pass:testPass
-  // ユーザー名　cypasman
+  // ユーザー名　cypasman1号
 
   //   console.log(userInfo);
 
