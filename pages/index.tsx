@@ -17,6 +17,7 @@ const Home = () => {
 
   const [inputPostText, setInputPostText] = useState("");
   const [inputUsernameText, setInputUsernameText] = useState<string>("");
+  // const [isLogin, setIsLogin] = useState<boolean>(false);
   // const [postTime, setPostTime] = useState<string>();
 
   const [posts, setPosts] = useState<Post[]>([
@@ -57,6 +58,14 @@ const Home = () => {
     //   badFlag: false,
     // },
   ]);
+
+  // localStorageからisLoginの値を取得
+  let isLogin;
+  if (typeof window !== "undefined") {
+    isLogin = localStorage.getItem("isLogin");
+  }
+
+  console.log(isLogin);
 
   const onClickGoodButton = (targetIndex: number) => {
     // 任意のいいね数のみ変更

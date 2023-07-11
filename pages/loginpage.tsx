@@ -9,12 +9,8 @@ const Loginpage = () => {
 
   const [inputUsername, setInputUsername] = useState<string>("");
   const [inputPass, setInputPass] = useState<string>("");
-  const [userInfo, setUserInfo] = useState<UserInfo[]>([
-    {
-      name: "aaaa",
-      pass: "bbbbb",
-    },
-  ]);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [userInfo, setUserInfo] = useState<UserInfo[]>([]);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,14 +33,23 @@ const Loginpage = () => {
 
       const json = await res.json();
       console.log("成功", json);
-      console.log({ res });
+      // console.log({ res });
 
-      setUserInfo((prev) => [
-        ...prev,
-        { name: inputUsername, pass: inputPass },
-      ]);
+      setUserInfo((prev) => [{ name: inputUsername, pass: inputPass }]);
 
-      console.log(event);
+      // // ログイン状態はtrueにする
+      // setIsLogin((prev) => !prev);
+
+      // ログイン状態をローカルストレージに保存
+      if (typeof window !== "undefined") {
+        localStorage.setItem("isLogin", "true");
+      }
+
+      // ページを掲示板に戻す
+      location.href = "./";
+
+      // console.log(userInfo);
+      // console.log(event);
     } catch (err) {
       console.error(err);
     }
@@ -53,12 +58,15 @@ const Loginpage = () => {
   // email: test@example.com pass:testPass
   // ユーザー名　cypasman1号
 
-  //   console.log(userInfo);
+  // console.log(userInfo);
+  // console.log(isLogin);
 
   return (
     <div className={style.loginform}>
       <div className={style.loginArea}>
         <h1 className={style.loginTitle}>Login</h1>
+
+        {/* formの中のonSubmitでloginボタン押したとき発火 */}
 
         <form onSubmit={onSubmit}>
           <div className={style.inputUsernameArea}>
