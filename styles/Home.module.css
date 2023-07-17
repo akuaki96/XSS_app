@@ -16,9 +16,38 @@
 }
 
 .headerContents {
-  /* background-color: aqua; */
-  width: 100%;
+  /* background-color: purple; */
+  width: 80%;
 }
+
+.loginInfo {
+  width: 20%;
+  margin-left: auto;
+  margin-right: 10px;
+  /* background-color: red; */
+  height: 100%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.userIcon {
+  text-align: center;
+  padding: 7px;
+  border-radius: 50%;
+  border: 0.5px solid #fff;
+  margin-right: 10px;
+  background-color: rgba(120, 202, 192, 0.716);
+}
+
+.userIconSize {
+  height: 30px;
+  width: 30px;
+}
+.LoginName {
+  /* margin-right: 5px; */
+}
+
 .headerListContent {
   display: inline;
   margin: 0 40px 50px;
@@ -27,7 +56,9 @@
 .boardTitle {
   margin: 50px 0;
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  color: rgb(45, 44, 43);
+  font-weight: bold;
 }
 
 .postArea {

@@ -4,7 +4,11 @@ import { headerData } from "./datas/headerData";
 import { useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faThumbsUp,
+  faThumbsDown,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
   type Post = {
@@ -64,6 +68,8 @@ const Home = () => {
   if (typeof window !== "undefined") {
     isLogin = localStorage.getItem("isLogin");
   }
+
+  isLogin = true;
 
   console.log(isLogin);
 
@@ -154,6 +160,18 @@ const Home = () => {
                 </li>
               ))}
             </ul>
+          </div>
+          <div className={style.loginInfo}>
+            <div className={style.userIcon}>
+              <FontAwesomeIcon
+                icon={faUser}
+                className={style.userIconSize}
+              ></FontAwesomeIcon>
+            </div>
+            {/* ログイン状態によってログイン情報を書き換え */}
+            <p className={style.LoginName}>
+              {isLogin ? "cypasman1号" : "名無しさん"}
+            </p>
           </div>
         </div>
 
