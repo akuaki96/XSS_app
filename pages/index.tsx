@@ -73,9 +73,9 @@ const Home = () => {
   ]);
 
   // localStorageからisLoginの値を取得
-  let isLogin;
+  let isLogin: boolean = false;
   if (typeof window !== "undefined") {
-    isLogin = localStorage.getItem("isLogin");
+    isLogin = Boolean(localStorage.getItem("isLogin"));
   }
 
   // isLogin = true;
@@ -183,7 +183,7 @@ const Home = () => {
             </div>
             {/* ログイン状態によってログイン情報を書き換え */}
             <p className={style.LoginName}>
-              {isLogin ? "cypasman1号" : "名無しさん"}
+              {isLogin ? "名無しさん" : "名無しさん"}
             </p>
           </div>
         </div>
