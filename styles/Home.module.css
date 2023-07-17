@@ -53,6 +53,23 @@
   margin: 0 40px 50px;
 }
 
+/* main */
+
+.isEscapeContents {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.isEscapeText {
+  margin: 0;
+}
+
+.isEscapeButton {
+  margin-left: 5px;
+}
+
 .boardTitle {
   margin: 50px 0;
   text-align: center;

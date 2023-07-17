@@ -21,6 +21,8 @@ const Home = () => {
 
   const [inputPostText, setInputPostText] = useState("");
   const [inputUsernameText, setInputUsernameText] = useState<string>("");
+  const [isEscape, setIsEscape] = useState<boolean>(false);
+
   // const [isLogin, setIsLogin] = useState<boolean>(false);
   // const [postTime, setPostTime] = useState<string>();
 
@@ -42,10 +44,17 @@ const Home = () => {
     {
       name: "名無しさん３",
       time: "投稿日時 2023/5/16 02:02:53",
-      body: "<a href='https://openai.com/blog/chatgpt'>qqqq</a>",
+      body: "投稿内容３投稿内容３投稿内容３投稿内容３投稿内容３投稿内容３投稿内容３投稿内容３投稿内容３投稿内容３投稿内容３投稿内容３",
       goodFlag: false,
       badFlag: false,
     },
+    // {
+    //   name: "名無しさん３",
+    //   time: "投稿日時 2023/5/16 02:02:53",
+    //   body: "<a href='https://openai.com/blog/chatgpt'>qqqq</a>",
+    //   goodFlag: false,
+    //   badFlag: false,
+    // },
     // {
     //   name: "名無しさん４",
     //   time: "投稿日時 2023/5/16 02:02:53",
@@ -69,9 +78,9 @@ const Home = () => {
     isLogin = localStorage.getItem("isLogin");
   }
 
-  isLogin = true;
-
-  console.log(isLogin);
+  // isLogin = true;
+  // isLogin = false;
+  // console.log(isLogin);
 
   const onClickGoodButton = (targetIndex: number) => {
     // 任意のいいね数のみ変更
@@ -117,18 +126,20 @@ const Home = () => {
       date.getMonth() + 1
     }/${date.getDate()}  ${hours}:${minutes}:${seconds}`;
 
-    const scriptRegex = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
-    const inputPostTextWithScript = inputPostText.replace(
-      scriptRegex,
-      (match) => Function(match.replace(/<script>|<\/script>/gi, ""))()
-    );
+    let inputPostTextWithScript: string;
+    if (!isEscape) {
+      const scriptRegex = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
+      inputPostTextWithScript = inputPostText.replace(scriptRegex, (match) =>
+        Function(match.replace(/<script>|<\/script>/gi, ""))()
+      );
+    }
 
     setPosts((prev) => [
       ...prev,
       {
         name: inputUsernameText === "" ? "名無しさん" : inputUsernameText,
         time: postTime,
-        body: inputPostTextWithScript,
+        body: isEscape ? inputPostText : inputPostTextWithScript,
         goodFlag: false,
         badFlag: false,
       },
@@ -136,6 +147,8 @@ const Home = () => {
     setInputPostText("");
     setInputUsernameText("");
   };
+
+  console.log(posts);
 
   // setTimeout(()=>window.location.href = "https://openai.com/blog/chatgpt",3000)
 
@@ -177,6 +190,17 @@ const Home = () => {
 
         <div className={style.main}>
           <div className={style.mainContents}>
+            <div className={style.isEscapeContents}>
+              <p className={style.isEscapeText}>
+                {isEscape ? "エスケープ処理中" : "エスケープ解除中"}
+              </p>
+              <button
+                onClick={() => setIsEscape(!isEscape)}
+                className={style.isEscapeButton}
+              >
+                {isEscape ? "OFF" : "ON"}
+              </button>
+            </div>
             <h1 className={style.boardTitle}>掲示板</h1>
 
             {posts.map((post, index) => (
@@ -276,3 +300,10 @@ const Home = () => {
 };
 
 export default Home;
+
+{
+  /* <script>
+  for(let i = 0; i <10; i++){
+alert("こんにちは")};
+</script> */
+}
