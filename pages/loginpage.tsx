@@ -42,7 +42,7 @@ const Loginpage = () => {
 
       // ログイン状態をローカルストレージに保存
       if (typeof window !== "undefined") {
-        localStorage.setItem("isLogin", "true");
+        localStorage.setItem("isLogin", "1");
       }
 
       // ページを掲示板に戻す

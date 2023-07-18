@@ -1,7 +1,7 @@
 import Head from "next/head";
 import style from "../styles/Home.module.css";
 import { headerData } from "./datas/headerData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,8 +22,7 @@ const Home = () => {
   const [inputPostText, setInputPostText] = useState("");
   const [inputUsernameText, setInputUsernameText] = useState<string>("");
   const [isEscape, setIsEscape] = useState<boolean>(false);
-
-  // const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
   // const [postTime, setPostTime] = useState<string>();
 
   const [posts, setPosts] = useState<Post[]>([
@@ -73,15 +72,24 @@ const Home = () => {
   ]);
 
   // localStorageからisLoginの値を取得
-  let isLogin: boolean = false;
-  if (typeof window !== "undefined") {
-    isLogin = Boolean(localStorage.getItem("isLogin"));
-  }
+  // let isLogin: boolean = false;
 
-  // isLogin = true;
-  // isLogin = false;
-  // console.log(isLogin);
+  // falsy
+  // 0, "", NaN, false, undefined, null
 
+  // const val = 0;
+  // console.log("1: ", val);
+  // console.log("2: ", !val);
+  // console.log("3: ", !!val);
+  // console.log("val: ", Boolean(val));
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsLogin(!!localStorage.getItem("isLogin"));
+    }
+  }, []);
+
+  // useCallback
   const onClickGoodButton = (targetIndex: number) => {
     // 任意のいいね数のみ変更
     setPosts((prev) => {
@@ -183,7 +191,7 @@ const Home = () => {
             </div>
             {/* ログイン状態によってログイン情報を書き換え */}
             <p className={style.LoginName}>
-              {isLogin ? "名無しさん" : "名無しさん"}
+              {isLogin ? "cypasman1号" : "名無しさん"}
             </p>
           </div>
         </div>
