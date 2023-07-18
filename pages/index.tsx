@@ -277,6 +277,7 @@ const Home = () => {
                   value={inputUsernameText}
                   placeholder="ユーザー名入力"
                   onChange={(e) => setInputUsernameText(e.target.value)}
+                  readOnly={isLogin}
                 ></input>
               </div>
               <div className={style.inputPostTextArea}>
