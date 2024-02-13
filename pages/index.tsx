@@ -71,18 +71,6 @@ const Home = () => {
     // },
   ]);
 
-  // localStorageからisLoginの値を取得
-  // let isLogin: boolean = false;
-
-  // falsy
-  // 0, "", NaN, false, undefined, null
-
-  // const val = 0;
-  // console.log("1: ", val);
-  // console.log("2: ", !val);
-  // console.log("3: ", !!val);
-  // console.log("val: ", Boolean(val));
-
   useEffect(() => {
     if (typeof window !== "undefined") {
       setIsLogin(!!localStorage.getItem("isLogin"));
@@ -135,6 +123,8 @@ const Home = () => {
     }/${date.getDate()}  ${hours}:${minutes}:${seconds}`;
 
     let inputPostTextWithScript: string;
+
+    // エスケープ解除中であったらエスケープ処理を解除する
     if (!isEscape) {
       const scriptRegex = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
       inputPostTextWithScript = inputPostText.replace(scriptRegex, (match) =>
@@ -189,6 +179,7 @@ const Home = () => {
                 className={style.userIconSize}
               ></FontAwesomeIcon>
             </div>
+
             {/* ログイン状態によってログイン情報を書き換え */}
             <p className={style.LoginName}>
               {isLogin ? "cypasman1号" : "名無しさん"}
@@ -277,7 +268,8 @@ const Home = () => {
                   value={inputUsernameText}
                   placeholder="ユーザー名入力"
                   onChange={(e) => setInputUsernameText(e.target.value)}
-                  readOnly={isLogin}
+                  //ログイン機能使用時にコメントアウトを外す
+                  // readOnly={isLogin}
                 ></input>
               </div>
               <div className={style.inputPostTextArea}>
@@ -309,10 +301,3 @@ const Home = () => {
 };
 
 export default Home;
-
-{
-  /* <script>
-  for(let i = 0; i <10; i++){
-alert("こんにちは")};
-</script> */
-}

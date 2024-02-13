@@ -14,6 +14,7 @@ const Loginpage = () => {
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     //formを使うときリロードを防ぐためのコード
     try {
       // const res = await((await fetch("http://localhost:3001/login")).json())
@@ -67,7 +68,6 @@ const Loginpage = () => {
         <h1 className={style.loginTitle}>Login</h1>
 
         {/* formの中のonSubmitでloginボタン押したとき発火 */}
-
         <form onSubmit={onSubmit}>
           <div className={style.inputUsernameArea}>
             <input
